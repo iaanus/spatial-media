@@ -47,11 +47,11 @@ def load(fh, position=None, end=None):
     name = fh.read(4)
 
     if (name != constants.TAG_SA3D):
-        print "Error: box is not an SA3D box."
+        print("Error: box is not an SA3D box.")
         return None
 
     if (position + size > end):
-        print "Error: SA3D box size exceeds bounds."
+        print("Error: SA3D box size exceeds bounds.")
         return None
 
     new_box.content_size = size - new_box.header_size
@@ -112,16 +112,16 @@ class SA3DBox(box.Box):
         return new_box
 
     def ambisonic_type_name(self):
-        return  (key for key,value in SA3DBox.ambisonic_types.items()
-                 if value==self.ambisonic_type).next()
+        return  next((key for key,value in list(SA3DBox.ambisonic_types.items())
+                 if value==self.ambisonic_type))
 
     def ambisonic_channel_ordering_name(self):
-        return (key for key,value in SA3DBox.ambisonic_orderings.items()
-                if value==self.ambisonic_channel_ordering).next()
+        return next((key for key,value in list(SA3DBox.ambisonic_orderings.items())
+                if value==self.ambisonic_channel_ordering))
 
     def ambisonic_normalization_name(self):
-        return (key for key,value in SA3DBox.ambisonic_normalizations.items()
-                if value==self.ambisonic_normalization).next()
+        return next((key for key,value in list(SA3DBox.ambisonic_normalizations.items())
+                if value==self.ambisonic_normalization))
 
     def print_box(self, console):
         """ Prints the contents of this spatial audio (SA3D) box to the

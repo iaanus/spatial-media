@@ -30,7 +30,7 @@ from spatialmedia import mpeg
 MPEG_FILE_EXTENSIONS = [".mp4", ".mov"]
 
 SPHERICAL_UUID_ID = (
-    "\xff\xcc\x82\x63\xf8\x55\x4a\x93\x88\x14\x58\x7a\x02\x52\x1f\xdd")
+    b"\xff\xcc\x82\x63\xf8\x55\x4a\x93\x88\x14\x58\x7a\x02\x52\x1f\xdd")
 
 # XML contents.
 RDF_PREFIX = " xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" "
@@ -129,7 +129,7 @@ def spherical_uuid(metadata):
     uuid_leaf.header_size = 8
     uuid_leaf.content_size = 0
 
-    uuid_leaf.contents = SPHERICAL_UUID_ID + metadata
+    uuid_leaf.contents = SPHERICAL_UUID_ID + metadata.encode('utf8')
     uuid_leaf.content_size = len(uuid_leaf.contents)
 
     return uuid_leaf
